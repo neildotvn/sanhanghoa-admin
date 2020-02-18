@@ -1,0 +1,34 @@
+<%- include ('../partials/header') %>
+
+<h4>Tạo thông báo</h4>
+
+<form class="create-noti-form" action="/notifications" method="POST">
+    <input required name="title" type="text" placeholder="tiêu đề" />
+    <textarea required name="description" rows="10">Nội dung</textarea>
+    <input type="submit" />
+</form>
+
+<table>
+    <tr>
+        <td>STT</td>
+        <td>Tiêu đề</td>
+        <td>Nội dung</td>
+        <td>Trạng thái</td>
+        <td></td>
+        <td></td>
+    </tr>
+    <% notifications.forEach((noti, index) => { %>
+    <tr>
+        <td><%= index + 1 %></td>
+        <td><%= noti.title %></td>
+        <td><%= noti.description %></td>
+        <td class="<%= noti.status === 1 ? "pushed" : "" %>">
+            <%= noti.status === 1 ? "Đã đẩy thông báo" : "Chưa đẩy thông báo" %>
+        </td>
+        <td><button class="bt bt-delete" onclick="deleteNoti('<%= noti.noti_uid %>')">Xoá</button></td>
+        <td><button class="bt bt-push" onclick="pushNoti('<%= noti.noti_uid %>')">Đẩy thông báo</button></td>
+    </tr>
+    <% }) %>
+</table>
+
+<%- include ('../partials/footer') %>
